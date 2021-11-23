@@ -1,0 +1,63 @@
+h1 {
+    text-align: left;
+    margin-top: 0px;
+    padding: 0 0 0 0;
+    font-size: 22px;
+}
+
+h2 {
+    margin-top: -10px;
+    font-size: 16px;
+    text-align: left;
+    padding: 0 0 0 0;
+    color: grey;
+}
+
+h3 {
+    font-size: 18px;
+    margin-top: 0;
+    color:rgb(86, 37, 223);
+}
+
+.heading {
+    margin-top: 44px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.description {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0px;
+}
+
+.description p {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(48, 48, 48);
+    font-size: 16px;
+    padding-right: 10px;
+}
+
+.description img {
+    max-width:20%;
+    margin-right:0;
+    height:auto;
+}
+
+.inputLabel {
+    font-size: 16px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0;
+}
+
+.inputName {
+    margin-top: 40px;
+    width: 100%;
+    border-width: 1px;
+    padding: 10px;
+}
+
+.inputName input{
+    width: 100%;
+}

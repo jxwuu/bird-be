@@ -1,0 +1,19 @@
+button{
+    width: 80px;
+    height: 40px;
+    margin: 15px;
+  }
+  .blackButton{
+    background-color: rgb(86, 37, 223);
+    color: white;
+    border-width: 4px;
+    border-color: rgb(86, 37, 223);
+  }
+
+  
+  .whiteButton{
+    background-color: white;
+    color: rgb(86, 37, 223);
+    border-width: 4px;
+    border-color: rgb(86, 37, 223);
+  }

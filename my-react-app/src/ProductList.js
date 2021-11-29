@@ -5,9 +5,12 @@ import PurchaseOptions from "./PurchaseOptions";
 export default class ProductList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { product: [] };
+    this.state = {
+      product: [],
+      price: 0,
+    };
   }
-  // error that shows up in console is unmount error 
+  // error that shows up in console is unmount error
 
   componentDidMount() {
     this.ProductList();
@@ -31,11 +34,16 @@ export default class ProductList extends React.Component {
         console.log(err);
       });
   }
-  callbackFunction = (childData) => {
-    this.setState({ message: childData });
+  callbackFunction = (getPrice) => {
+    this.setState({ price: Number(this.state.price) + Number(getPrice) });
+  };
+
+  handlePrice = (Price) => {
+    this.setState({ price: Price });
   };
 
   render() {
+    console.log(this.state.language);
     const products = this.state.product.map((item) => (
       <div className="todoapp stack-large" key={item.id}>
         <div>
@@ -78,8 +86,12 @@ export default class ProductList extends React.Component {
             autoComplete="off"
             placeholder="Allergies"
           />
-
-          <PurchaseOptions data={item} />
+          <div>
+            <PurchaseOptions
+              data={item}
+              parentCallback={this.callbackFunction}
+            />
+          </div>
         </div>
       </div>
     ));
@@ -87,6 +99,7 @@ export default class ProductList extends React.Component {
     return (
       <div id="layout-content" className="layout-content-wrapper">
         <div className="panel-list">{products}</div>
+        <div className="total">You're total is ${this.state.price}</div>
       </div>
     );
   }

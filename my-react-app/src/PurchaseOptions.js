@@ -2,17 +2,30 @@ import React, { useState } from "react";
 import "./SubmitButton.css";
 
 function PurchaseOptions(props) {
-  const [price, setPrice] = useState("");
-  const [isEditing, setEditing] = useState(false);
+  const [price, setPrice] = useState(0);
+  const [isBuying, setBuying] = useState(false);
+
+  let total = 0;
   function handleChange(e) {
-    setPrice(calculatePrice(e.target.value));
+    setPrice(calculatePrice(e.currentTarget.value));
+    e.preventDefault();
   }
 
   function calculatePrice(multiplier) {
     return (multiplier * props.data.price).toFixed(2);
   }
 
-  const editingTemplate = (
+  function subtractTotal(price) {
+    total -= price;
+    props.parentCallback(total);
+  }
+
+  function addTotal(price) {
+    total += price;
+    props.parentCallback(total);
+  }
+
+  const removeTemplate = (
     <div>
       <form className="purchaseOptions">
         <div>
@@ -25,9 +38,7 @@ function PurchaseOptions(props) {
               handleChange();
             }}
           />
-          <label className="labels">
-            One-time purchase
-          </label>
+          <label className="labels">One-time purchase</label>
           <input
             type="radio"
             id="subscription"
@@ -37,7 +48,7 @@ function PurchaseOptions(props) {
               handleChange();
             }}
           />
-          <label  className="labels">
+          <label className="labels">
             Subscribe every 3 months and save 10%
           </label>
         </div>
@@ -47,7 +58,8 @@ function PurchaseOptions(props) {
           type="submit"
           className="blackButton"
           onClick={() => {
-            setEditing(false);
+            subtractTotal(price);
+            setBuying(false);
           }}
         >
           Remove from cart
@@ -56,7 +68,7 @@ function PurchaseOptions(props) {
     </div>
   );
 
-  const viewTemplate = (
+  const addTemplate = (
     <div>
       <form className="purchaseOptions">
         <div>
@@ -67,9 +79,7 @@ function PurchaseOptions(props) {
             value="1.00"
             onChange={handleChange}
           />
-          <label  className="labels">
-            One-time purchase
-          </label>
+          <label className="labels">One-time purchase</label>
           <input
             type="radio"
             id="subscription"
@@ -77,7 +87,7 @@ function PurchaseOptions(props) {
             value="2.70"
             onChange={handleChange}
           />
-          <label  className="labels">
+          <label className="labels">
             Subscribe every 3 months and save 10%
           </label>
         </div>
@@ -89,7 +99,8 @@ function PurchaseOptions(props) {
             type="button"
             className="whiteButton"
             onClick={() => {
-              setEditing(true);
+              addTotal(price);
+              setBuying(true);
             }}
           >
             Add to cart ${price}
@@ -99,7 +110,7 @@ function PurchaseOptions(props) {
     </div>
   );
 
-  return <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>;
+  return <li className="todo">{isBuying ? removeTemplate : addTemplate}</li>;
 }
 
 export default PurchaseOptions;

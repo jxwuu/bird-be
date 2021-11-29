@@ -61,3 +61,11 @@ h3 {
 .inputName input {
   width: 100%;
 }
+
+.total {
+  width: 100%;
+  font-size: 18px;
+  padding: 50px;
+  color: rgb(86, 37, 223);
+  text-align: center;
+}

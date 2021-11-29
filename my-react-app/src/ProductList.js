@@ -8,6 +8,8 @@ export default class ProductList extends React.Component {
     this.state = {
       product: [],
       price: 0,
+      recipient: "",
+      allergies: "",
     };
   }
   // error that shows up in console is unmount error
@@ -38,12 +40,15 @@ export default class ProductList extends React.Component {
     this.setState({ price: Number(this.state.price) + Number(getPrice) });
   };
 
-  handlePrice = (Price) => {
-    this.setState({ price: Price });
-  };
+  handleChangeRecipient(event) {
+    this.setState({ recipient: event.target.value });
+  }
+
+  handleChangeAllergies(event) {
+    this.setState({ allergies: event.target.value });
+  }
 
   render() {
-    console.log(this.state.language);
     const products = this.state.product.map((item) => (
       <div className="todoapp stack-large" key={item.id}>
         <div>
@@ -68,8 +73,14 @@ export default class ProductList extends React.Component {
           <input
             type="text"
             id="new-todo-input"
-            className="input input__lg"
-            name="text"
+            name="recipient"
+            onChange={(event) => this.handleChangeRecipient(event)}
+            className={
+              this.state.recipient !== ""
+                ? "input input__lg"
+                : "input input__lg__red"
+            }
+            value={this.state.recipient}
             autoComplete="off"
             placeholder="Recipient's name"
           />
@@ -82,14 +93,17 @@ export default class ProductList extends React.Component {
             type="text"
             id="new-todo-input"
             className="input input__lg"
-            name="text"
+            name="allergies"
             autoComplete="off"
+            onChange={(event) => this.handleChangeAllergies(event)}
+            value={this.state.allergies}
             placeholder="Allergies"
           />
           <div>
             <PurchaseOptions
               data={item}
               parentCallback={this.callbackFunction}
+              recipient={this.state.recipient}
             />
           </div>
         </div>

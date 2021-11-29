@@ -35,6 +35,7 @@ function PurchaseOptions(props) {
             name="drone"
             value="1.00"
             onChange={handleChange}
+            disabled
           />
           <label className="labels">One-time purchase</label>
           <input
@@ -43,6 +44,7 @@ function PurchaseOptions(props) {
             name="drone"
             value="2.70"
             onChange={handleChange}
+            disabled
           />
           <label className="labels">
             Subscribe every 3 months and save 10%
@@ -92,6 +94,7 @@ function PurchaseOptions(props) {
         <div className="c-cb"></div>
         <div className="btn-group">
           <button
+            disabled={!props.recipient}
             type="button"
             className="whiteButton"
             onClick={() => {

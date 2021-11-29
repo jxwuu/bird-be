@@ -34,9 +34,7 @@ function PurchaseOptions(props) {
             id="1time"
             name="drone"
             value="1.00"
-            onChange={() => {
-              handleChange();
-            }}
+            onChange={handleChange}
           />
           <label className="labels">One-time purchase</label>
           <input
@@ -44,9 +42,7 @@ function PurchaseOptions(props) {
             id="subscription"
             name="drone"
             value="2.70"
-            onChange={() => {
-              handleChange();
-            }}
+            onChange={handleChange}
           />
           <label className="labels">
             Subscribe every 3 months and save 10%

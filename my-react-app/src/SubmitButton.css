@@ -12,8 +12,10 @@ button{
 
   
   .whiteButton{
+    width: 100%;
     background-color: white;
     color: rgb(86, 37, 223);
     border-width: 4px;
     border-color: rgb(86, 37, 223);
+    text-align: center;
   }

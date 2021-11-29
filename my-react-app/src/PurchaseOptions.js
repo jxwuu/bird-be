@@ -1,89 +1,105 @@
 import React, { useState } from "react";
+import "./SubmitButton.css";
 
 function PurchaseOptions(props) {
   const [price, setPrice] = useState("");
-
+  const [isEditing, setEditing] = useState(false);
   function handleChange(e) {
-    console.log(e.target.value);
+    setPrice(calculatePrice(e.target.value));
   }
-  function handleSubmit(e) {
-    e.preventDefault();
-    setPrice(3);
+
+  function calculatePrice(multiplier) {
+    return (multiplier * props.data.price).toFixed(2);
   }
-  return (
-      <form className="wrapper">
+
+  const editingTemplate = (
     <div>
-    <input type="radio" id="1time" name="drone" value={price}
-           onChange={handleChange}
-           checked={price}  />
-    <label for="1time" className= "labels">One-time purchase</label>
-  </div>
-  
-  <div>
-    <input type="radio" id="subscription" name="drone" value={price}  checked={price}
-     onChange={handleChange}/>
-    <label for="subscription"  className= "labels">Subscribe every 3 months and save 10%</label>
-  </div>
-  </form>
+      <form className="purchaseOptions">
+        <div>
+          <input
+            type="radio"
+            id="1time"
+            name="drone"
+            value="1.00"
+            onChange={() => {
+              handleChange();
+            }}
+          />
+          <label className="labels">
+            One-time purchase
+          </label>
+          <input
+            type="radio"
+            id="subscription"
+            name="drone"
+            value="2.70"
+            onChange={() => {
+              handleChange();
+            }}
+          />
+          <label  className="labels">
+            Subscribe every 3 months and save 10%
+          </label>
+        </div>
+      </form>
+      <div className="btn-group">
+        <button
+          type="submit"
+          className="blackButton"
+          onClick={() => {
+            setEditing(false);
+          }}
+        >
+          Remove from cart
+        </button>
+      </div>
+    </div>
   );
+
+  const viewTemplate = (
+    <div>
+      <form className="purchaseOptions">
+        <div>
+          <input
+            type="radio"
+            id="1time"
+            name="drone"
+            value="1.00"
+            onChange={handleChange}
+          />
+          <label  className="labels">
+            One-time purchase
+          </label>
+          <input
+            type="radio"
+            id="subscription"
+            name="drone"
+            value="2.70"
+            onChange={handleChange}
+          />
+          <label  className="labels">
+            Subscribe every 3 months and save 10%
+          </label>
+        </div>
+      </form>
+      <div className="btn-group">
+        <div className="c-cb"></div>
+        <div className="btn-group">
+          <button
+            type="button"
+            className="whiteButton"
+            onClick={() => {
+              setEditing(true);
+            }}
+          >
+            Add to cart ${price}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  return <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>;
 }
 
 export default PurchaseOptions;
-
-
-// var SearchResult = React.createClass({
-//   getInitialState: function () {
-//     return {
-//       site: '',
-//       address: ''
-//     };
-//   },
-//   onSiteChanged: function (e) {
-//     this.setState({
-//       site: e.currentTarget.value
-//       });
-//   },
-
-//   onAddressChanged: function (e) {
-//     this.setState({
-//       address: e.currentTarget.value
-//       });
-//   },
-
-//   render: function(){
-//        var resultRows = this.props.data.map(function(result){
-//            return (
-//                <tbody>
-//                     <tr>
-//                         <td><input type="radio" name="site_name" 
-//                                    value={result.SITE_NAME} 
-//                                    checked={this.state.site === result.SITE_NAME} 
-//                                    onChange={this.onSiteChanged} />{result.SITE_NAME}</td>
-//                         <td><input type="radio" name="address" 
-//                                    value={result.ADDRESS}  
-//                                    checked={this.state.address === result.ADDRESS} 
-//                                    onChange={this.onAddressChanged} />{result.ADDRESS}</td>
-//                     </tr>
-//                </tbody>
-//            );
-//        }, this);
-//        return (
-//            <table className="table">
-//                <thead>
-//                    <tr>
-//                        <th>Name</th>
-//                        <th>Address</th>
-//                    </tr>
-//                </thead>
-//                 {resultRows}
-//                <tfoot>
-//                    <tr>
-//                        <td>chosen site name {this.state.site} </td>
-//                        <td>chosen address {this.state.address} </td>
-//                    </tr>
-//                </tfoot>
-//            </table>
-//        );
-//   }
-// });
-//
